@@ -1,268 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="description"
-        content="SkyEvents: A Large-Scale Event-enhanced UAV Dataset for Robust 3D Scene Reconstruction.">
-  <meta name="keywords" content="SkyEvents, Event Camera, UAV, 3D Reconstruction, NeRF, Gaussian Splatting">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SkyEvents: Large-Scale Event-enhanced UAV Dataset</title>
-
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
-
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-        rel="stylesheet">
-
-  <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
-  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
-  <link rel="stylesheet" href="./static/css/index.css">
-  <link rel="icon" href="./static/images/favicon.svg">
-
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
-  <script src="./static/js/index.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyEvents: A Large-Scale Event-Enhanced UAV Dataset</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Roboto', sans-serif; background-color: #f9fafb; color: #111827; }
+        .btn-link { 
+            @apply inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full text-white bg-gray-900 hover:bg-gray-700 transition duration-150 ease-in-out m-2 shadow-md; 
+        }
+        .section-title {
+            @apply text-3xl md:text-4xl font-bold text-center mb-10 text-gray-900;
+        }
+        .card {
+            @apply bg-white p-6 rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition;
+        }
+    </style>
 </head>
 <body>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://github.com/YOUR_USERNAME">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-      </div>
+    <header class="max-w-5xl mx-auto pt-20 pb-12 px-4 text-center">
+        <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight tracking-tight">
+            SkyEvents: A Large-Scale Event-Enhanced UAV Dataset <br class="hidden md:block">
+            for Robust 3D Scene Reconstruction
+        </h1>
+        <p class="text-xl md:text-2xl text-blue-600 font-semibold mb-8">
+            Under Review at ICLR 2026
+        </p>
+        
+        <div class="text-lg mb-10 text-gray-600">
+            <span class="font-medium">Anonymous Authors</span>
+            <br>
+            <span class="text-sm text-gray-500">(Paper ID: 4795)</span>
+        </div>
 
-  </div>
-</nav>
+        <div class="flex flex-wrap justify-center">
+            <a href="#" class="btn-link"><i class="fas fa-file-pdf mr-2"></i> Paper</a>
+            <a href="#" class="btn-link"><i class="fab fa-github mr-2"></i> Code</a>
+            <a href="#" class="btn-link"><i class="fas fa-database mr-2"></i> Dataset</a>
+            <a href="#video" class="btn-link"><i class="fas fa-play-circle mr-2"></i> Video</a>
+        </div>
+    </header>
 
+    <section class="max-w-6xl mx-auto px-4 mb-20">
+        <div class="bg-white p-3 rounded-2xl shadow-lg">
+            <img src="./static/images/teaser.jpg" alt="Teaser Figure" class="w-full rounded-xl"
+                 onerror="this.src='https://via.placeholder.com/1200x500?text=Please+convert+cover_figure.pdf+to+teaser.jpg'">
+            <p class="text-sm text-gray-500 mt-3 text-center italic">
+                Figure 1: (a) Rendering and mesh under different light conditions. (b) Comparison and statistics of datasets. (c) Dataset collection across varied illumination conditions, scenarios, and flight altitudes.
+            </p>
+        </div>
+    </section>
 
-<section class="hero">
-  <div class="hero-body">
-    <div class="container is-max-desktop">
-      <div class="columns is-centered">
-        <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">SkyEvents: A Large-Scale Event-enhanced UAV Dataset for Robust 3D Scene Reconstruction</h1>
-          <div class="is-size-5 publication-authors">
-            <span class="author-block">
-              <a href="#">Jian He</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="#">Jinjing Lastname</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="#">Yinghui Lastname</a><sup>2</sup>,</span>
-            <span class="author-block">
-              <a href="#">Siqi Lai</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="#">Yunfan Lastname</a><sup>1</sup>,</span>
-            <span class="author-block">
-              <a href="#">Prof. Xiong</a><sup>1</sup>
-            </span>
-          </div>
+    <section class="max-w-4xl mx-auto px-4 mb-20">
+        <h2 class="section-title">Abstract</h2>
+        <div class="text-lg leading-relaxed text-gray-700 text-justify bg-white p-8 rounded-2xl shadow-sm">
+            <p class="mb-4">
+                Recent advances in large-scale 3D scene reconstruction using unmanned aerial vehicles (UAVs) have spurred increasing interest in neural rendering techniques. However, existing approaches with conventional cameras struggle to capture consistent multi-view images of scenes, particularly in extremely blurred and low-light environments, due to the inherent limitations in dynamic range caused by long exposure and motion blur resulting from camera motion.
+            </p>
+            <p class="mb-4">
+                As a promising solution, bio-inspired event cameras exhibit robustness in extreme scenarios, thanks to their high dynamic range and microsecond-level temporal resolution. Nevertheless, dedicated event datasets specifically tailored for large-scale UAV 3D scene reconstruction remain limited. To bridge this gap, we introduce <strong>SkyEvents</strong>, a pioneering large-scale event-enhanced UAV dataset for 3D scene reconstruction, incorporating RGB, event, and LiDAR data.
+            </p>
+            <p>
+                SkyEvents encompasses <strong>45 sequences</strong>, spanning over <strong>8 hours</strong> of video, captured across a diverse set of illumination conditions, scenarios, and flight altitudes. To facilitate the event-based 3D scene reconstruction with SkyEvents, we propose the <strong>Geometry-constrained Timestamp Alignment (GTA)</strong> module to align timestamps between the event and RGB cameras. Furthermore, we introduce <strong>Region-wise Event Rendering (RER)</strong> loss for supervising the rendering optimization. With SkyEvents, we aim to motivate and equip researchers to advance large-scale 3D scene reconstruction in challenging environments.
+            </p>
+        </div>
+    </section>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>Your University Name,</span>
-            <span class="author-block"><sup>2</sup>Collaborating Institution</span>
-          </div>
-
-          <div class="column has-text-centered">
-            <div class="publication-links">
-              <span class="link-block">
-                <a href="https://openreview.net/pdf?id=dxHPqQindP"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper (OpenReview)</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://github.com/YOUR_USERNAME/SkyEvent"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                </a>
-              </span>
-              <span class="link-block">
-                <a href="https://huggingface.co/datasets/SkyEvent-Team/SkyEvent"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data (2TB)</span>
-                </a>
-              </span>
+    <section class="bg-gray-100 py-16 mb-20">
+        <div class="max-w-6xl mx-auto px-4">
+            <h2 class="section-title">Dataset Highlights</h2>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                <div class="card text-center">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">45</div>
+                    <div class="text-gray-600 font-medium">Sequences</div>
+                </div>
+                <div class="card text-center">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">>8h</div>
+                    <div class="text-gray-600 font-medium">Total Duration</div>
+                </div>
+                <div class="card text-center">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">0.72</div>
+                    <div class="text-gray-600 font-medium">km² Point Cloud</div>
+                </div>
+                <div class="card text-center">
+                    <div class="text-4xl font-bold text-blue-600 mb-2">3</div>
+                    <div class="text-gray-600 font-medium">Modalities (RGB+Event+LiDAR)</div>
+                </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="hero teaser">
-  <div class="container is-max-desktop">
-    <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        <span class="dnerf">SkyEvents</span> enables robust 3D scene reconstruction across 
-        <strong>4.5km flight trajectories</strong> by fusing RGB and Event streams.
-      </h2>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Abstract</h2>
-        <div class="content has-text-justified">
-          <p>
-            As a promising solution, bio-inspired event cameras exhibit robustness in extreme scenarios, 
-            thanks to their high dynamic range and microsecond-level temporal resolution. 
-            Nevertheless, dedicated event datasets specifically tailored for large-scale UAV 3D scene reconstruction remain limited. 
-          </p>
-          <p>
-            To bridge this gap, we introduce <strong>SkyEvents</strong>, a pioneering large-scale event-enhanced UAV dataset 
-            for 3D scene reconstruction, incorporating RGB, event, and LiDAR data. SkyEvents encompasses 
-            <strong>22 sequences</strong>, spanning over <strong>8 hours</strong> of video, captured across a diverse set of 
-            illumination conditions, scenarios, and flight altitudes. 
-          </p>
-          <p>
-            To facilitate the event-based 3D scene reconstruction with SkyEvents, we propose the 
-            <strong>Geometry-constrained Timestamp Alignment (GTA)</strong> module to align timestamps between 
-            the event and RGB cameras. Furthermore, we introduce <strong>Region-wise Event Rendering (RER)</strong> 
-            loss for supervising the rendering optimization. With SkyEvents, we aim to motivate and equip 
-            researchers to advance large-scale 3D scene reconstruction in challenging environments.
-          </p>
+            <div class="bg-white p-4 rounded-2xl shadow-md">
+                <img src="./static/images/statistics.png" alt="Dataset Statistics" class="w-full rounded-lg"
+                     onerror="this.src='https://via.placeholder.com/1000x300?text=Please+use+iclr2026/fig/statistics.png'">
+                <p class="text-sm text-gray-500 mt-2 text-center">
+                    Data statistics: flight path, scenario types, illumination, and flight height distribution.
+                </p>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video Presentation</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-    </div>
-</section>
+    </section>
 
-
-<section class="section">
-  <div class="container is-max-desktop">
-
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Dataset Overview</h2>
-        <div class="content has-text-justified">
-          <p>
-            The <strong>SkyEvents</strong> dataset features synchronized data from RGB cameras, Event cameras (Prophesee), and LiDAR.
-            It covers urban, rural, and campus scenes under varying lighting conditions (day, night, sunset).
-          </p>
+    <section class="max-w-5xl mx-auto px-4 mb-20">
+        <h2 class="section-title">Methodology</h2>
+        
+        <div class="mb-10">
+            <img src="./static/images/pipeline.jpg" alt="Pipeline" class="w-full rounded-lg shadow-lg"
+                 onerror="this.src='https://via.placeholder.com/1000x500?text=Please+convert+iclr2026/fig/figure2.pdf+to+pipeline.jpg'">
+            <p class="text-gray-600 text-sm italic text-center mt-3">
+                Figure 2: Data collection and rendering pipelines. The platform consists of a UAV payload, Prophesee EVK4 event camera, and DJI RGB camera.
+            </p>
         </div>
-        <div class="content has-text-centered">
-          <img src="./static/images/dataset_overview.png"
-               class="interpolation-image"
-               alt="Dataset Overview."/>
-        </div>
-      </div>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Methodology</h2>
-        <div class="content has-text-justified">
-          <p>
-            We introduce two key components to handle the asynchronous nature of event data in 3D reconstruction:
-          </p>
-          <ul>
-            <li>
-              <strong>Geometry-constrained Timestamp Alignment (GTA)</strong>: Ensures precise temporal alignment between event streams and RGB frames using geometric constraints from LiDAR ground truth.
-            </li>
-            <li>
-              <strong>Region-wise Event Rendering (RER) Loss</strong>: A novel loss function that optimizes the reconstruction by focusing on high-frequency regions captured by the event camera.
-            </li>
-          </ul>
-        </div>
-        <div class="content has-text-centered">
-          <img src="./static/images/method.png"
-               class="interpolation-image"
-               alt="Method Pipeline."/>
-        </div>
-      </div>
-    </div>
-    </div>
-</section>
 
-
-<section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{skyevents2026,
-  title={SkyEvents: A Large-Scale Event-enhanced UAV Dataset for Robust 3D Scene Reconstruction},
-  author={He, Jian and Others},
-  journal={ICLR Submission},
-  year={2026},
-  url={https://openreview.net/forum?id=dxHPqQindP}
-}</code></pre>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link"
-         href="https://openreview.net/pdf?id=dxHPqQindP">
-        <i class="fas fa-file-pdf"></i>
-      </a>
-      <a class="icon-link" href="https://github.com/YOUR_USERNAME/SkyEvent" class="external-link" disabled>
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
-    <div class="columns is-centered">
-      <div class="column is-8">
-        <div class="content">
-          <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            Template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
-          </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="card">
+                <h3 class="text-xl font-bold mb-3 flex items-center">
+                    <i class="fas fa-clock text-blue-500 mr-3"></i> GTA Module
+                </h3>
+                <p class="text-gray-700">
+                    <strong>Geometry-Constrained Timestamp Alignment:</strong> 
+                    To address the ~5ms delay between event and RGB streams, we propose GTA. It utilizes a geometry consistency score based on reprojection error to align timestamps with microsecond precision, enabling frame-accurate synchronization.
+                </p>
+            </div>
+            <div class="card">
+                <h3 class="text-xl font-bold mb-3 flex items-center">
+                    <i class="fas fa-eye text-green-500 mr-3"></i> RER Loss
+                </h3>
+                <p class="text-gray-700">
+                    <strong>Region-Wise Event Rendering:</strong> 
+                    We introduce an event-based brightness-change consistency loss. By estimating the warp between sensors and defining a region-aligned supervision, we constrain brightness changes only within overlapping regions, significantly improving rendering in low-light and blurred areas.
+                </p>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-</footer>
+    </section>
+
+    <section class="max-w-6xl mx-auto px-4 mb-20">
+        <h2 class="section-title">Experimental Results</h2>
+        
+        <p class="text-center text-gray-700 mb-8 max-w-3xl mx-auto">
+            We evaluated our method using state-of-the-art 3DGS pipelines (Luminance-GS and Improved-GS). The integration of event modality markedly enhances rendering quality, particularly in deblurring and low-light recovery.
+        </p>
+
+        <div class="bg-white p-2 rounded-xl shadow-lg mb-8">
+            <img src="./static/images/results.png" alt="Qualitative Results" class="w-full rounded-lg"
+                 onerror="this.src='https://via.placeholder.com/1200x600?text=Please+use+iclr2026/fig/jinjing2.png'">
+             <p class="text-sm text-gray-500 mt-2 text-center italic">
+                Comparison of 3D scene reconstruction with and without event enhancement. Note the reduction in artifacts and sharper details in the event-enhanced results.
+            </p>
+        </div>
+    </section>
+
+    <section class="max-w-4xl mx-auto px-4 mb-20">
+        <h2 class="section-title text-2xl">BibTeX</h2>
+        <div class="bg-gray-800 text-gray-300 p-6 rounded-xl overflow-x-auto shadow-inner">
+<pre class="whitespace-pre-wrap font-mono text-sm">
+@inproceedings{skyevents2026,
+  title={SkyEvents: A Large-Scale Event-Enhanced UAV Dataset for Robust 3D Scene Reconstruction},
+  author={Anonymous Authors},
+  booktitle={Under Review at ICLR},
+  year={2026}
+}
+</pre>
+        </div>
+    </section>
+
+    <footer class="bg-white border-t border-gray-200 py-10">
+        <div class="max-w-4xl mx-auto text-center text-gray-500">
+            <p class="mb-2">Copyright © 2026 Anonymous Authors.</p>
+            <p class="text-sm">
+                Project page template inspired by <a href="https://nerfies.github.io" class="text-blue-500 hover:underline">Nerfies</a>.
+            </p>
+        </div>
+    </footer>
 
 </body>
 </html>
